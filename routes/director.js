@@ -6,6 +6,16 @@ const router = express.Router();
 const Director = require('../models/Director');
 const { route } = require('./movie');
 
+router.get('/', (req, res) => {
+  const promise = Director.find({ })
+
+  promise.then((data) => {
+    res.json(data)
+  }).catch((err) => {
+    res.json(err)
+  })
+})
+
 router.post('/', (req, res, next) => {
   const director = new Director(req.body)
   const promise = director.save()
@@ -124,6 +134,19 @@ router.put('/:director_id', (req, res) => {
       next({ message: 'The director was not found' })
     else
       res.json(director)
+  }).catch((err) => {
+    res.json(err)
+  })
+})
+
+router.delete('/:director_id', (req, res) => {
+  const promise = Director.findByIdAndRemove(req.params.director_id)
+
+  promise.then((director) => {
+    if(!director)
+      next({ message: 'The director was not found' })
+    else
+      res.json({ status: 1 })
   }).catch((err) => {
     res.json(err)
   })

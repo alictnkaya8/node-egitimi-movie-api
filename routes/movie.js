@@ -5,7 +5,19 @@ const router = express.Router();
 const Movie = require('../models/Movie')
 
 router.get('/', (req, res) => {
-  const promise = Movie.find({ })
+  const promise = Movie.aggregate([
+    {
+      $lookup: {
+        from: 'directors',
+        localField: 'director_id',
+        foreignField: '_id',
+        as: 'director'
+      }
+    },
+    {
+      $unwind: 'director'
+    }
+  ])
 
   promise.then((data) => {
     res.json(data)
@@ -69,7 +81,7 @@ router.delete('/:movie_id', (req, res, next) => {
     if(!movie)
       next({ message: 'The movie was not found' })
     else
-      res.json(movie)
+      res.json({ status: 1 })
   }).catch((err) => {
     res.json(err)
   })
