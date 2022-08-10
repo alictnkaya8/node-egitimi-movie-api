@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+// const registerRouter = require('./routes/register');
 const movieRouter = require('./routes/movie');
 const directorRouter = require('./routes/director');
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+// app.use('/register', registerRouter);
 app.use('/api/movies', movieRouter);
 app.use('/api/directors', directorRouter);
 
