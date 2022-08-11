@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
       }
     },
     {
-      $unwind: 'director'
+      $unwind: '$director'
     }
   ])
 
