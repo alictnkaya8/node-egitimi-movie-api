@@ -79,4 +79,33 @@ describe('/api/movies tests', () => {
             })
         })
     })
+
+    describe('/PUT/:movie_id', () =>{
+        it('it should UPDATE a movie by given id', (done) => {
+            const movie = {
+                title: 'Test film 2',
+                director_id: "62f3963057a1492f1ecaf2ba",
+                category: "Komedi",
+                country: 'Türkiye',
+                year: 1990,
+                imdb_score: 7
+            }
+            chai.request(server)
+            .put('/api/movies/' + movieId)
+            .send(movie)
+            .set('x-access-token', token)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.should.have.property('title').eql(movie.title)
+                res.body.should.have.property('director_id').eql(movie.director_id)
+                res.body.should.have.property('category').eql(movie.category)
+                res.body.should.have.property('country').eql(movie.country)
+                res.body.should.have.property('year').eql(movie.year)
+                res.body.should.have.property('imdb_score').eql(movie.imdb_score)
+                done()
+            })
+        })
+    })
+
 })
