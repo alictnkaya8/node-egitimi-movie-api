@@ -17,7 +17,6 @@ describe('/api/movies tests', () => {
             done()
         })
     })
-
     describe('/GET movies', () => {
         it('it should GET all the movies', (done) => {
             chai.request(server)
@@ -30,7 +29,6 @@ describe('/api/movies tests', () => {
             })
         })
     })
-
     describe('/POST movie', () =>{
         it('it should post a movie', (done) => {
             const movie = {
@@ -59,7 +57,6 @@ describe('/api/movies tests', () => {
             })
         })
     })
-
     describe('/GET /:movie_id', () => {
         it('it should GET a movie by the given id', (done) => {
             chai.request(server)
@@ -79,7 +76,6 @@ describe('/api/movies tests', () => {
             })
         })
     })
-
     describe('/PUT/:movie_id', () =>{
         it('it should UPDATE a movie by given id', (done) => {
             const movie = {
@@ -107,5 +103,17 @@ describe('/api/movies tests', () => {
             })
         })
     })
-
+    describe('/DELETE/:movie_id', () =>{
+        it('it should DELETE a movie by given id', (done) => {
+            chai.request(server)
+            .delete('/api/movies/' + movieId)
+            .set('x-access-token', token)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.should.have.property('status').eql(1)
+                done()
+            })
+        })
+    })
 })
