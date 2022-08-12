@@ -6,4 +6,4 @@ before_install:
   -npm_install
   -export NODE_ENV=production
 script:
-  -npm run test
+  -npm test
