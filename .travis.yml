@@ -1,6 +1,12 @@
 language: node_js
 node_js:
   -16
+deploy:
+  provider: heroku
+  api_key: 57956de6-ced3-45b1-a06b-3b822ea54637
+  app: https://peaceful-bayou-05116.herokuapp.com
+  on:
+    -https://github.com/alictnkaya8/node-egitimi-movie-api
 before_install: 
   -npm_install
   -export NODE_ENV=production
